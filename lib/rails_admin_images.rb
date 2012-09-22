@@ -22,7 +22,7 @@ module RailsAdmin
           Proc.new do
 						@abstract_model
 					 if request.method == "GET"
-           		@interior_imgs =@object.image_variants.where(:image_type"interior")
+           		@interior_imgs =@object.image_variants.where(:image_type=>"interior")
            		@exterior_imgs=@object.image_variants.where(:image_type=>"exterior")
            		@generic_imgs=@object.image_variants.where(:image_type=>"generic")
               render :action => @action.template_name
