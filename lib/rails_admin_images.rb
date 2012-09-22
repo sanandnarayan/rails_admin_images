@@ -38,7 +38,7 @@ module RailsAdmin
 
         # Is the action on a model scope (Example: /admin/team/export)
         register_instance_option :collection? do
-          true
+					false
         end
 
         # Model scoped actions only. You will need to handle params[:bulk_ids] in controller
