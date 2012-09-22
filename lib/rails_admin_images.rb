@@ -13,7 +13,7 @@ module RailsAdmin
         
 	      register_instance_option :controller do
           Proc.new do
-						@abstract_model
+						@object
 					 if request.method == "GET"
            		@interior_imgs =@object.image_variants.where(:image_type=>"interior")
            		@exterior_imgs=@object.image_variants.where(:image_type=>"exterior")
@@ -31,14 +31,16 @@ module RailsAdmin
         register_instance_option :visible? do
           true
         end
-
+				register_instance_option :member? do
+  				true
+				end
         register_instance_option :authorized? do
           true
         end
 
         # Is the action on a model scope (Example: /admin/team/export)
         register_instance_option :collection? do
-					false
+          false
         end
 
         # Model scoped actions only. You will need to handle params[:bulk_ids] in controller
