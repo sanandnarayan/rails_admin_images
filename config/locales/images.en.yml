@@ -1,0 +1,11 @@
+
+en:
+  admin:
+    actions:
+      images:
+        title: "Images"
+        menu: "Images for %{model_label} '%{object_label}'"
+        breadcrumb: "Images"
+        link: "Images"
+        bulk_link: "Images selected %{model_label_plural}"
+        done: "Imagesed"

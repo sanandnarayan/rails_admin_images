@@ -1,0 +1,26 @@
+<div class="well">
+	<div class="row">
+		<div class="span2">Interior Images</div>
+		<div class="span4">
+			<% @interior_imgs.each do |imgs| %>
+				<a href="<%= img.image(:original) %>" class="thumbnail" target="blank"><img src="<%= img.image(:original) %>"></a>
+			<% end%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2">Exterior Images</div>
+		<div class="span4">
+			<% @interior_imgs.each do |imgs| %>
+				<a href="<%= img.image(:original) %>" class="thumbnail" target="blank"><img src="<%= img.image(:original) %>"></a>
+			<% end%>
+		</div>
+	</div>
+	<div class="row">
+		<div class="span2">Generic Images</div>
+		<div class="span4">
+			<% @interior_imgs.each do |imgs| %>
+				<a href="<%= img.image(:original) %>" class="thumbnail" target="blank"><img src="<%= img.image(:original) %>"></a>
+			<% end%>
+		</div>
+	</div>
+</div>

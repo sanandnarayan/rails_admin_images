@@ -1,0 +1,3 @@
+module RailsAdminImages
+  VERSION = "0.0.1"
+end
