@@ -7,11 +7,11 @@ require "rails_admin_images/version"
 Gem::Specification.new do |s|
   s.name        = "rails_admin_images"
   s.version     = RailsAdminImages::VERSION
-  s.authors     = ["TODO: Your name"]
-  s.email       = ["TODO: Your email"]
-  s.homepage    = "TODO"
-  s.summary     = "TODO: Summary of RailsAdminImages."
-  s.description = "TODO: Description of RailsAdminImages."
+  s.authors     = "thamizh"
+  s.email       = "thamizh@devbrother.com"
+  s.homepage    = "www.devbrother.com"
+  s.summary     = "Summary of RailsAdminImages."
+  s.description = "Description of RailsAdminImages."
 
   s.files = Dir["{app,config,db,lib}/**/*"] + ["MIT-LICENSE", "Rakefile", "README.rdoc"]
 

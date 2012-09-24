@@ -1,5 +1,5 @@
 <script type="text/javascript" src="/assets/plugins/jquery.fancybox.js"></script>
-<link  type="text/css" rel="stylesheet" href="/assets/plugins/jquery.fancybox.js">
+<link  type="text/css" rel="stylesheet" href="/assets/jquery.fancybox.css">
 <script type="text/javascript">
 	$(document).ready(function(){
 		$("a.group1").fancybox({
@@ -37,7 +37,7 @@
 	<div class="row">
 		<div class="span2">Exterior Images</div>
 		<div class="span4">
-			<% @interior_imgs.each do |img| %>
+			<% @exterior_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
@@ -45,7 +45,7 @@
 	<div class="row">
 		<div class="span2">Generic Images</div>
 		<div class="span4">
-			<% @interior_imgs.each do |img| %>
+			<% @generic_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group3"class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
