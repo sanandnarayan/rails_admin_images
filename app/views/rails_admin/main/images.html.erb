@@ -1,7 +1,7 @@
 	<div class="well">
 	<div class="row">
 		<div class="span2">Interior Images</div>
-		<div class="span4">
+		<div class="span4 drop" rel="interior">
 			<% @interior_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group1" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
@@ -9,7 +9,7 @@
 	</div>
 	<div class="row">
 		<div class="span2">Exterior Images</div>
-		<div class="span4">
+		<div class="span4 drop" rel="exterior">
 			<% @exterior_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
@@ -17,29 +17,71 @@
 	</div>
 	<div class="row">
 		<div class="span2">Generic Images</div>
-		<div class="span4">
+		<div class="span4 drop" rel="generic">
 			<% @generic_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>" rel="group3"class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+				<a href="<%= img.image.image(:original) %>"  rel="group3"class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
+	<% unless @uncategorized.nil? %>
+	<div class="row">
+		<div class="span2">Uncategorized Images</div>
+		<div class="span4">
+			<% @uncategorized.each do |img| %>
+				<a href="<%= img.image.image(:original)%>" id="<%=img.id%>" rel="group3" class="thumbnail drag ui-widget-content" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+			<% end%>
+		</div>
+	</div>
+	<% end%>
 </div>
-	<%= form_tag :url => "images", :html => { :multipart => true, :remote=>true, class=>"well", :method=>"POST" } %>
+<%= form_tag("/admin/variant/#{@object.id}/images", :multipart => true,  :class=>"form-horizontal well", :method=>"post") do %>
 	<div class="control-group">
-   <%= label_tag :image_type, "Image Category"%>
+   <%= label_tag :image_type, "Image Category",:class=>"control-label" %>
     <div class="controls">
-			<%=  select_tag "image_type","",options_for_select(["Interiror","Exterior","Generic"]) %>
+			<%=  select_tag "image_type",options_for_select(["Interiror","Exterior","Generic"]) %>
     </div>
   </div>
   <div class="control-group">
-   <%= label_tag :image, "Upload Images"%>
+   <%= label_tag :image, "Upload Images", :class=>"control-label" %>
     <div class="controls">
-			<%= file_field_tag :avatar %>	
+			<%= file_field_tag :image %>	
     </div>
   </div>
 	<div class="control-group">
     <div class="controls">
-			<%= submit_tag "Upload Images">
+			<%= submit_tag "Upload Images"%>
     </div>
   </div>
-
+<% end %>
+<script type="text/javascript" src="/assets/plugins/jquery.ui.draggable.js"></script>
+<script type="text/javascript" src="/assets/plugins/jquery.ui.droppable.js"></script>
+<script type="text/javascript">
+	var draggable_id="";
+	$(document).ready(function(){
+		$(".drag").draggable({
+			revert: true,
+			drag:function(){
+				draggable_id=$(this).attr("id");
+			}
+		});
+		var bgcolor=$(".drop").css('backgroundColor');
+		$(".drop").droppable({
+			over: function() {
+				$(this).css('backgroundColor', '#cedae3');
+			},
+			out: function() {
+				$(this).css('backgroundColor', bgcolor);
+			},
+			drop: function() {
+				var url="/admin/variant/<%= @object.id %>/images";
+				$.post(url,{"img_type":$(this).attr("rel"),"commit":"update","img_id":draggable_id},function(data){
+						if(data=="updated")
+							location.href=url;
+						else 
+							alert(data);
+				});
+				draggable_id="";
+			}
+		});
+	});
+</script>

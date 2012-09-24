@@ -14,13 +14,30 @@ module RailsAdmin
 	      register_instance_option :controller do
           Proc.new do
 						@object
-					 if request.method == "GET"
+					 if request.method != "POST"
            		@interior_imgs =@object.image_variants.where(:image_type=>"interior")
            		@exterior_imgs=@object.image_variants.where(:image_type=>"exterior")
            		@generic_imgs=@object.image_variants.where(:image_type=>"generic")
-           		
+           		@uncategorized=@object.image_variants.where(:image_type=>"uncategorized")
               render :action => @action.template_name
-            end
+					 end
+					 if request.method == "POST"
+							if params[:commit]=="update"
+								imgvar=ImageVariant.find(params[:img_id])
+							  if	imgvar.update_attributes(:image_type=>params[:img_type])
+									render :text=>"updated"
+								else
+									render :text=>"Error Occured"
+								end
+							else
+								image=Image.new(:image=>params[:image])
+								iv=@object.image_variants.new(:image_type=>params[:image_type])
+								iv.image = image
+								iv.save
+		          	flash[:notice]="Image Uploaded"
+		          	redirect_to "/admin/variant/#{@object.id}/images"
+		          end
+           end
           end
         end
         
