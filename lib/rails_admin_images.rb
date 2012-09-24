@@ -18,6 +18,7 @@ module RailsAdmin
            		@interior_imgs =@object.image_variants.where(:image_type=>"interior")
            		@exterior_imgs=@object.image_variants.where(:image_type=>"exterior")
            		@generic_imgs=@object.image_variants.where(:image_type=>"generic")
+           		
               render :action => @action.template_name
             end
           end

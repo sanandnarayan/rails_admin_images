@@ -1,31 +1,4 @@
-<script type="text/javascript" src="/assets/plugins/jquery.fancybox.js"></script>
-<link  type="text/css" rel="stylesheet" href="/assets/jquery.fancybox.css">
-<script type="text/javascript">
-	$(document).ready(function(){
-		$("a.group1").fancybox({
-			'transitionIn'	:	'elastic',
-			'transitionOut'	:	'elastic',
-			'speedIn'		:	600, 
-			'speedOut'		:	200, 
-			'overlayShow'	:	false
-		});
-		$("a.group2").fancybox({
-			'transitionIn'	:	'elastic',
-			'transitionOut'	:	'elastic',
-			'speedIn'		:	600, 
-			'speedOut'		:	200, 
-			'overlayShow'	:	false
-		});
-		$("a.group3").fancybox({
-			'transitionIn'	:	'elastic',
-			'transitionOut'	:	'elastic',
-			'speedIn'		:	600, 
-			'speedOut'		:	200, 
-			'overlayShow'	:	false
-		});
-	});
-</script>
-<div class="well">
+	<div class="well">
 	<div class="row">
 		<div class="span2">Interior Images</div>
 		<div class="span4">
@@ -51,3 +24,23 @@
 		</div>
 	</div>
 </div>
+<%= form_tag :url => "images", :html => { :multipart => true, :remote=>true, class="well", :method=>"POST" } do |form| %>
+	<div class="control-group">
+   <%= label_tag :image_type, "Image Category"%>
+    <div class="controls">
+			<%=  select_tag "image_type","",options_for_select(["Interiror","Exterior","Generic"]) %>
+    </div>
+  </div>
+  <div class="control-group">
+   <%= label_tag :image, "Upload Images"%>
+    <div class="controls">
+			<%= file_field_tag :avatar %>	
+    </div>
+  </div>
+	<div class="control-group">
+    <div class="controls">
+			<%= submit_tag "Upload Images">
+    </div>
+  </div>
+	<%= form.file_field :avatar %>
+<% end %>
