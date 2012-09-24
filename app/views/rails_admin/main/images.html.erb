@@ -1,9 +1,36 @@
+<script type="text/javascript" src="/assets/plugins/jquery.fancybox.js"></script>
+<link  type="text/css" rel="stylesheet" href="/assets/plugins/jquery.fancybox.js">
+<script type="text/javascript">
+	$(document).ready(function(){
+		$("a.group1").fancybox({
+			'transitionIn'	:	'elastic',
+			'transitionOut'	:	'elastic',
+			'speedIn'		:	600, 
+			'speedOut'		:	200, 
+			'overlayShow'	:	false
+		});
+		$("a.group2").fancybox({
+			'transitionIn'	:	'elastic',
+			'transitionOut'	:	'elastic',
+			'speedIn'		:	600, 
+			'speedOut'		:	200, 
+			'overlayShow'	:	false
+		});
+		$("a.group3").fancybox({
+			'transitionIn'	:	'elastic',
+			'transitionOut'	:	'elastic',
+			'speedIn'		:	600, 
+			'speedOut'		:	200, 
+			'overlayShow'	:	false
+		});
+	});
+</script>
 <div class="well">
 	<div class="row">
 		<div class="span2">Interior Images</div>
 		<div class="span4">
 			<% @interior_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>" class="thumbnail" target="blank"><img src="<%= img.image.image(:original) %>"></a>
+				<a href="<%= img.image.image(:original) %>" rel="group1" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
@@ -11,7 +38,7 @@
 		<div class="span2">Exterior Images</div>
 		<div class="span4">
 			<% @interior_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>" class="thumbnail" target="blank"><img src="<%= img.image.image(:original) %>"></a>
+				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
@@ -19,7 +46,7 @@
 		<div class="span2">Generic Images</div>
 		<div class="span4">
 			<% @interior_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>" class="thumbnail" target="blank"><img src="<%= img.image.image(:original) %>"></a>
+				<a href="<%= img.image.image(:original) %>" rel="group3"class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
