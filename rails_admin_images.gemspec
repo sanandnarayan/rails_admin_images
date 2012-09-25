@@ -9,7 +9,7 @@ Gem::Specification.new do |s|
   s.version     = RailsAdminImages::VERSION
   s.authors     = "thamizh"
   s.email       = "thamizh@devbrother.com"
-  s.homepage    = "www.devbrother.com"
+  s.homepage    = "http://www.devbrother.com"
   s.summary     = "Summary of RailsAdminImages."
   s.description = "Description of RailsAdminImages."
 
