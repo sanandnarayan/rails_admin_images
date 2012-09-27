@@ -4,7 +4,7 @@
 		<div class="span2">Interior Images</div>
 		<div class="span4 drop" rel="interior">
 			<% @interior_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>" rel="group1" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+				<a href="<%= img.image.image(:original) %>" rel="group1" class="thumbnail  drag"  id="<%=img.id%>"  target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
@@ -14,7 +14,7 @@
 		<div class="span2">Exterior Images</div>
 		<div class="span4 drop" rel="exterior">
 			<% @exterior_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
@@ -24,7 +24,7 @@
 		<div class="span2">Generic Images</div>
 		<div class="span4 drop" rel="generic">
 			<% @generic_imgs.each do |img| %>
-				<a href="<%= img.image.image(:original) %>"  rel="group3"class="thumbnail" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+				<a href="<%= img.image.image(:original) %>"  rel="group3"class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
@@ -32,14 +32,16 @@
 	<% unless @uncategorized.count ==0 %>
 	<div class="row well">
 		<div class="span2">Uncategorized Images</div>
-		<div class="span4">
+		<div class="span4" rel="uncategorized">
 			<% @uncategorized.each do |img| %>
 				<a href="<%= img.image.image(:original)%>" id="<%=img.id%>" rel="group3" class="thumbnail drag ui-widget-content" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		</div>
 	</div>
 	<% end%>
-</div>
+	<div class="thumbnail drop" rel="trash">
+			<img src="/assets/trash.png" style="height:100px">	Drop here to Delete the Image
+		</div>
 <h3>Upload Images </h3>
 <%= form_tag("/admin/variant/#{@object.id}/images", :multipart => true,  :class=>"form-horizontal well", :method=>"post") do %>
 	<div class="control-group">
@@ -75,14 +77,35 @@
 		$(".drop").droppable({
 			over: function() {
 				$(this).css('backgroundColor', '#cedae3');
+				if($(this).attr("rel")=="trash")
+				{
+					$(this).closest("div").css('backgroundColor', '#f00');
+				}
+				
 			},
 			out: function() {
 				$(this).css('backgroundColor', bgcolor);
+				if($(this).attr("rel")=="trash")
+				{
+					$(this).closest("div").css('backgroundColor', '#cedae3');
+				}
 			},
 			drop: function() {
+				var commit="";
+				var drop_div=$(this).attr("rel");
+				var drag_div=$("#"+draggable_id).closest("div").attr("rel");
+				if (drag_div==drop_div)
+					return false
+				if(drop_div=="trash"){
+					commit="destroy";
+					if (!confirm("Are you sure ?"))
+						return false;
+				}
+				else
+					commit="update"
 				var url="/admin/variant/<%= @object.id %>/images";
-				$.post(url,{"img_type":$(this).attr("rel"),"commit":"update","img_id":draggable_id},function(data){
-						if(data=="updated")
+				$.post(url,{"img_type":drop_div,"commit":commit,"img_id":draggable_id},function(data){
+						if(data=="updated" || data=="Deleted")
 							location.href=url;
 						else 
 							alert(data);
