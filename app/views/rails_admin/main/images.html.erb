@@ -1,44 +1,56 @@
 	<div class="well">
-	<% unless @interior_imgs.count ==0 %>
 	<div class="row well">
 		<div class="span2">Interior Images</div>
 		<div class="span4 drop" rel="interior">
+		<% if @interior_imgs.count ==0 %>
+			No more Images
+		<% else %>
 			<% @interior_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group1" class="thumbnail  drag"  id="<%=img.id%>"  target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
+		<% end%>
 		</div>
 	</div>
-		<% end%>
-	<% unless @exterior_imgs.count ==0 %>
+		
 	<div class="row well">
 		<div class="span2">Exterior Images</div>
 		<div class="span4 drop" rel="exterior">
+		<% if @exterior_imgs.count ==0 %>
+				No more Images
+		<% else %>
 			<% @exterior_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
+		<% end%>
 		</div>
 	</div>
-		<% end%>
-	<% unless @generic_imgs.count ==0 %>
+		
 	<div class="row well">
 		<div class="span2">Generic Images</div>
 		<div class="span4 drop" rel="generic">
+		<% if @generic_imgs.count ==0 %>
+				No more Images
+		<% else %>
 			<% @generic_imgs.each do |img| %>
 				<a href="<%= img.image.image(:original) %>"  rel="group3"class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
+		<% end%>
 		</div>
 	</div>
-		<% end%>
-	<% unless @uncategorized.count ==0 %>
+
 	<div class="row well">
 		<div class="span2">Uncategorized Images</div>
 		<div class="span4" rel="uncategorized">
+		<% if @uncategorized.count ==0 %>
+				No more Images
+		<% else %>
 			<% @uncategorized.each do |img| %>
 				<a href="<%= img.image.image(:original)%>" id="<%=img.id%>" rel="group3" class="thumbnail drag ui-widget-content" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
+		<% end%>
 		</div>
 	</div>
-	<% end%>
+
 	<div class="thumbnail drop" rel="trash">
 			<img src="/assets/trash.png" style="height:100px">	Drop here to Delete the Image
 		</div>
@@ -47,7 +59,7 @@
 	<div class="control-group">
    <%= label_tag :image_type, "Image Category",:class=>"control-label" %>
     <div class="controls">
-			<%=  select_tag "image_type",options_for_select(["Interiror","Exterior","Generic"]) %>
+			<%=  select_tag "image_type",options_for_select(["interior","exterior","generic"]) %>
     </div>
   </div>
   <div class="control-group">
