@@ -1,11 +1,11 @@
 	<div class="well">
 	<div class="row well">
-		<div class="span2">Interior Images</div>
-		<div class="span4 drop" rel="interior">
-		<% if @interior_imgs.count ==0 %>
+		<div class="span2">Interior Generic Images</div>
+		<div class="span4 drop" rel="interior generic">
+		<% if @interior_generic.nil? %>
 			No more Images
 		<% else %>
-			<% @interior_imgs.each do |img| %>
+			<% @interior_generic.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group1" class="thumbnail  drag"  id="<%=img.id%>"  target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		<% end%>
@@ -13,12 +13,12 @@
 	</div>
 		
 	<div class="row well">
-		<div class="span2">Exterior Images</div>
-		<div class="span4 drop" rel="exterior">
-		<% if @exterior_imgs.count ==0 %>
+		<div class="span2">Interior Actual Images</div>
+		<div class="span4 drop" rel="interior actual">
+		<% if @interior_actual.nil? %>
 				No more Images
 		<% else %>
-			<% @exterior_imgs.each do |img| %>
+			<% @interior_actual.each do |img| %>
 				<a href="<%= img.image.image(:original) %>" rel="group2" class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		<% end%>
@@ -26,14 +26,38 @@
 	</div>
 		
 	<div class="row well">
-		<div class="span2">Generic Images</div>
-		<div class="span4 drop" rel="generic">
-		<% if @generic_imgs.count ==0 %>
+		<div class="span2">Exterior Generic Images</div>
+		<div class="span4 drop" rel="exterior generic">
+		<% if @exterior_generic.nil?%>
 				No more Images
 		<% else %>
-			<% @generic_imgs.each do |img| %>
+			<% @exterior_generic.each do |img| %>
 				<a href="<%= img.image.image(:original) %>"  rel="group3"class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
+		<% end%>
+		</div>
+	</div>
+	
+	<div class="row well">
+		<div class="span2">Exterior Actual Images</div>
+		<div class="span4 drop" rel="exterior actual">
+		<% if @exterior_actual.nil? %>
+				No more Images
+		<% else %>
+			<% @exterior_actual.each do |img| %>
+				<a href="<%= img.image.image(:original) %>"  rel="group4"class="thumbnail  drag"  id="<%=img.id%>" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+			<% end%>
+		<% end%>
+		</div>
+	</div>
+	
+	<div class="row well">
+		<div class="span2">Featured Image( Used For search page too)</div>
+		<div class="span4 drop" rel="featured">
+		<% if @featured.nil? %>
+				No more Image
+		<% else %>
+			<a href="<%= @featured.image.image(:original) %>"  rel="group5"class="thumbnail  drag"  id="<%=@featured.id%>" target="blank"><img src="<%= @featured.image.image(:thumb) %>"></a>
 		<% end%>
 		</div>
 	</div>
@@ -45,7 +69,7 @@
 				No more Images
 		<% else %>
 			<% @uncategorized.each do |img| %>
-				<a href="<%= img.image.image(:original)%>" id="<%=img.id%>" rel="group3" class="thumbnail drag ui-widget-content" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
+				<a href="<%= img.image.image(:original)%>" id="<%=img.id%>" rel="group6" class="thumbnail drag ui-widget-content" target="blank"><img src="<%= img.image.image(:thumb) %>"></a>
 			<% end%>
 		<% end%>
 		</div>
@@ -59,7 +83,7 @@
 	<div class="control-group">
    <%= label_tag :image_type, "Image Category",:class=>"control-label" %>
     <div class="controls">
-			<%=  select_tag "image_type",options_for_select(["interior","exterior","generic"]) %>
+			<%=  select_tag "image_type",options_for_select(["interior generic","interior actual","exterior generic","exterior actual","featured"]) %>
     </div>
   </div>
   <div class="control-group">

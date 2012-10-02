@@ -15,15 +15,20 @@ module RailsAdmin
           Proc.new do
 						@object
 						if request.method != "POST"
-		         		@interior_imgs =@object.image_variants.where(:image_type=>"interior")
-		         		@exterior_imgs=@object.image_variants.where(:image_type=>"exterior")
-		         		@generic_imgs=@object.image_variants.where(:image_type=>"generic")
-		         		@uncategorized=@object.image_variants.where(:image_type=>"uncategorized")
+		         		@interior_generic	=	@object.image_variants.where(:image_type=>"interior generic")
+		         		@exterior_generic	=	@object.image_variants.where(:image_type=>"exterior generic")
+		         		@interior_actual	=	@object.image_variants.where(:image_type=>"interior actual")
+		         		@exterior_actual	=	@object.image_variants.where(:image_type=>"exterior actual")
+		         		@featured					=	@object.image_variants.where(:image_type=>"featured").first
+		         		@uncategorized		=	@object.image_variants.where(:image_type=>"uncategorized")
 		            render :action => @action.template_name
 						end
 						if request.method == "POST"
 							if params[:commit]=="update"
 								imgvar=ImageVariant.where(:id=>params[:img_id]).first
+								if(params[:img_type]=="featured")
+									@object.image_variants.where(:image_type=>"featured").destroy_all
+								end
 								if	imgvar.update_attributes(:image_type=>params[:img_type])
 									render :text=>"updated"
 								else
@@ -38,6 +43,9 @@ module RailsAdmin
 			  				end
 							else
 								image=Image.new(:image=>params[:image])
+								if(params[:image_type]=="featured")
+									@object.image_variants.where(:image_type=>"featured").destroy_all
+								end
 								iv=@object.image_variants.new(:image_type=>params[:image_type])
 								iv.image = image
 								iv.save
