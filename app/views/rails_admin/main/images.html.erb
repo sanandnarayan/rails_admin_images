@@ -1,7 +1,7 @@
 	<div class="well">
 	<div class="row well">
 		<div class="span2">Interior Generic Images</div>
-		<div class="span4 drop" rel="interior generic">
+		<div class="span4 drop" rel="interior_generic">
 		<% if @interior_generic.nil? %>
 			No more Images
 		<% else %>
@@ -14,7 +14,7 @@
 		
 	<div class="row well">
 		<div class="span2">Interior Actual Images</div>
-		<div class="span4 drop" rel="interior actual">
+		<div class="span4 drop" rel="interior_actual">
 		<% if @interior_actual.nil? %>
 				No more Images
 		<% else %>
@@ -27,7 +27,7 @@
 		
 	<div class="row well">
 		<div class="span2">Exterior Generic Images</div>
-		<div class="span4 drop" rel="exterior generic">
+		<div class="span4 drop" rel="exterior_generic">
 		<% if @exterior_generic.nil?%>
 				No more Images
 		<% else %>
@@ -40,7 +40,7 @@
 	
 	<div class="row well">
 		<div class="span2">Exterior Actual Images</div>
-		<div class="span4 drop" rel="exterior actual">
+		<div class="span4 drop" rel="exterior_actual">
 		<% if @exterior_actual.nil? %>
 				No more Images
 		<% else %>
@@ -83,7 +83,13 @@
 	<div class="control-group">
    <%= label_tag :image_type, "Image Category",:class=>"control-label" %>
     <div class="controls">
-			<%=  select_tag "image_type",options_for_select(["interior generic","interior actual","exterior generic","exterior actual","featured"]) %>
+			<%=  select_tag "image_type",options_for_select(["interior_generic","interior_actual","exterior_generic","exterior_actual","featured"]) %>
+    </div>
+  </div>
+ 	<div class="control-group">
+  <%= label_tag :caption, "Image Caption",:class=>"control-label" %>
+    <div class="controls">
+			<%= text_field_tag :caption  %>
     </div>
   </div>
   <div class="control-group">

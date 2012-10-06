@@ -15,10 +15,10 @@ module RailsAdmin
           Proc.new do
 						@object
 						if request.method != "POST"
-		         		@interior_generic	=	@object.image_variants.where(:image_type=>"interior generic")
-		         		@exterior_generic	=	@object.image_variants.where(:image_type=>"exterior generic")
-		         		@interior_actual	=	@object.image_variants.where(:image_type=>"interior actual")
-		         		@exterior_actual	=	@object.image_variants.where(:image_type=>"exterior actual")
+		         		@interior_generic	=	@object.image_variants.where(:image_type=>"interior_generic")
+		         		@exterior_generic	=	@object.image_variants.where(:image_type=>"exterior_generic")
+		         		@interior_actual	=	@object.image_variants.where(:image_type=>"interior_actual")
+		         		@exterior_actual	=	@object.image_variants.where(:image_type=>"exterior_actual")
 		         		@featured					=	@object.image_variants.where(:image_type=>"featured").first
 		         		@uncategorized		=	@object.image_variants.where(:image_type=>"uncategorized")
 		            render :action => @action.template_name
@@ -46,7 +46,7 @@ module RailsAdmin
 								if(params[:image_type]=="featured")
 									@object.image_variants.where(:image_type=>"featured").destroy_all
 								end
-								iv=@object.image_variants.new(:image_type=>params[:image_type])
+								iv=@object.image_variants.new(:image_type=>params[:image_type],:caption=>params[:caption])
 								iv.image = image
 								iv.save
 						   	flash[:notice]="Image Uploaded"
