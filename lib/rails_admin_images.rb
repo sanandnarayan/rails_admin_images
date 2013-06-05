@@ -52,6 +52,8 @@ module RailsAdmin
 						   	flash[:notice]="Image Uploaded"
 						   	redirect_to "/admin/variant/#{@object.id}/images"
 							end
+							featured_image = @object.image_variants.featured_image.image.image(:small) rescue "/assets/noimage_small.png"
+             @object.update_attributes(:featured_image_url => featured_image) if params[:img_type] == "featured"
 				    end
 					end
         end
