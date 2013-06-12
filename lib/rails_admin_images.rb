@@ -52,8 +52,19 @@ module RailsAdmin
 						   	flash[:notice]="Image Uploaded"
 						   	redirect_to "/admin/variant/#{@object.id}/images"
 							end
-							featured_image = @object.image_variants.featured_image.image.image(:small) rescue "/assets/noimage_small.png"
-             @object.update_attributes(:featured_image_url => featured_image) if params[:img_type] == "featured"
+
+              if params[:image_type] == "featured"
+                # if the updated image is a featured image, change the featured image url column for the variant
+                updated_image = @object.image_variants.featured_image.image
+                
+                updated_image.processed = true # unlock for processing
+                updated_image.image.reprocess! # do the processing for creating various versions of it
+                updated_image.save
+
+  							featured_image_url = updated_image.image(:small) rescue "/assets/noimage_small.png"
+
+                @object.update_attributes(:featured_image_url => featured_image_url)
+              end
 				    end
 					end
         end
